@@ -1,0 +1,44 @@
+<html metal:use-macro="main_template">
+    <div class="content-pane" metal:fill-slot="content">
+
+        <h2>Welcome to Tethr!</h2>
+
+        <p>To get started please choose a boot passphrase.</p>
+
+        <!-- I wasn't happy with deform output, so I took the output, pasted
+             it here and edited it.  -->
+        <form id="deform" class="deform form-horizontal deform"
+            action="" method="POST" enctype="multipart/form-data" 
+            accept-charset="utf-8">
+
+            <fieldset>
+              <input type="hidden" name="_charset_" />
+              <input type="hidden" name="__formid__" value="deform"/>
+              <div class="control-group " id="item-deformField1" title="">
+                  <input type="hidden" name="__start__" value="passphrase:mapping"/>
+                  <div>
+                    <input type="password"
+                           name="passphrase"
+                           value=""
+                           id="deformField1"
+                           placeholder="Passphrase"/>
+                  </div><br/>
+                  <div>
+                    <input type="password"
+                           name="passphrase-confirm"
+                           value=""
+                           id="deformField1-confirm"
+                           placeholder="Confirm Passphrase"/>
+                  </div>
+                  <input type="hidden" name="__end__" 
+                         value="passphrase:mapping"/>
+              </div>
+              <button id="deformnext" name="next" type="submit"
+                  class="btn btn-large btn-primary" value="next">
+                Next
+              </button>
+            </fieldset>
+        </form>   
+
+   </div>
+</html>

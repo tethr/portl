@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>${layout.page_title}</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+        <link href="${layout.static('bootstrap-2.2.2/css/bootstrap.min.css')}"
+              rel="stylesheet" media="screen"/>
+        <link href="${layout.static('bootstrap-2.2.2/css/bootstrap-responsive.min.css')}"
+              rel="stylesheet" media="screen"/>
+        <style type="text/css">
+          body {
+            padding-top: 10px;
+            padding-bottom: 10px;
+            background-color: #f5f5f5;
+          }
+
+          .content-pane {
+            max-width: 400px;
+            padding: 19px 29px 29px;
+            margin: 0 auto 20px;
+            background-color: #fff;
+            border: 1px solid #e5e5e5;
+            -webkit-border-radius: 5px;
+               -moz-border-radius: 5px;
+                    border-radius: 5px;
+            -webkit-box-shadow: 0 1px 2px rgba(0,0,0,.05);
+               -moz-box-shadow: 0 1px 2px rgba(0,0,0,.05);
+                    box-shadow: 0 1px 2px rgba(0,0,0,.05);
+          }
+       </style>
+    </head>
+    <body>
+        <div class="container-fluid">
+            <metal:block define-slot="content">Page content goes here.</metal:block> 
+        </div>
+        <script src="${layout.static('js/jquery-1.9.0.min.js')}"></script>
+        <script src="${layout.static('bootstrap-2.2.2/js/bootstrap.min.js')}"></script>
+    </body>
+</html>

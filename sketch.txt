@@ -1,0 +1,31 @@
+New Device Wizard
+-----------------
+
+Hello.  Please type a new password.
+
+____________  <Next>
+
+--
+
+I need a moment.
+
+      *
+--
+
+Here is your new wifi password: abcd1234
+
+<Next>
+
+--
+
+Rejoin $NETWORK with your new password: abcd1234
+
+<Finish>
+
+Configured Device Status
+------------------------
+
+Network       Battery/Solar Panel      File transfers
+-------       -------------------      --------------
+
+Good/bad.     Good/bad/ugly.           Pending/synced.
