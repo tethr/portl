@@ -8,6 +8,8 @@
               rel="stylesheet" media="screen"/>
         <link href="${layout.static('bootstrap-2.2.2/css/bootstrap-responsive.min.css')}"
               rel="stylesheet" media="screen"/>
+        <link href="${layout.deform('css/form.css')}"
+              rel="stylesheet" media="screen"/>
         <style type="text/css">
           body {
             padding-top: 10px;
@@ -36,5 +38,7 @@
         </div>
         <script src="${layout.static('js/jquery-1.9.0.min.js')}"></script>
         <script src="${layout.static('bootstrap-2.2.2/js/bootstrap.min.js')}"></script>
+        <script src="${layout.deform('scripts/deform.js')}"></script>
+        <script metal:define-slot="tail-script"></script>
     </body>
 </html>

@@ -1,0 +1,17 @@
+<html metal:use-macro="main_template">
+    <div class="content-pane" metal:fill-slot="content">
+
+        <h2>Just a Moment!</h2> 
+
+        <p>Your Tethr is being configured.</p>
+        <br/><br/>
+        <p id="spinner"></p>
+    </div>
+    <metal:block fill-slot="tail-script">
+        <script src="${layout.static('js/spin.min.js')}"></script>
+        <script>
+            new Spinner().spin(document.getElementById('spinner'));
+            setTimeout(function() {location.reload(true);}, 5000);
+        </script>
+    </metal:block>
+</html>

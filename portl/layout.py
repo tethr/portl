@@ -3,6 +3,7 @@ from pyramid_layout.layout import layout_config
 from .wizard import WizardForm
 
 
+@layout_config(template='templates/admin.pt')
 class Layout(object):
     page_title = 'Tethr'
 
@@ -14,7 +15,7 @@ class Layout(object):
         return self.request.static_url('portl:static/' + path)
 
     def deform(self, path):
-        return self.request.static_url('deform_bootstrap:static/' + path)
+        return self.request.static_url('deform:static/' + path)
 
 
 @layout_config(context=WizardForm, template='templates/wizard_layout.pt')
