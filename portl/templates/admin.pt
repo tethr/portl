@@ -1,6 +1,13 @@
-<html>
-    <head><title>Hello World!</title></head>
-    <body>
-        Hello World!
-    </body>
+<html metal:use-macro="main_template">
+    <div metal:fill-slot="content" class="row-fluid">
+        <div class="span4 tethr-panel">
+            Network
+        </div>
+        <div class="span4 tethr-panel">
+            Power
+        </div>
+        <div class="span4 tethr-panel">
+            File Synchronization
+        </div>
+    </div>
 </html>

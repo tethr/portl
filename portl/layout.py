@@ -3,7 +3,7 @@ from pyramid_layout.layout import layout_config
 from .wizard import WizardForm
 
 
-@layout_config(template='templates/admin.pt')
+@layout_config(template='templates/admin_layout.pt')
 class Layout(object):
     page_title = 'Tethr'
 
