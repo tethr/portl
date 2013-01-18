@@ -1,7 +1,29 @@
 <html metal:use-macro="main_template">
     <div metal:fill-slot="content" class="row-fluid">
         <div class="span4 tethr-panel">
-            Network
+            <div class="tethr-icon">
+                <i class="icon-ok" tal:condition="wifi['up']"></i>
+                <i class="icon-remove" tal:condition="not wifi['up']"></i>
+            </div>
+            <div class="tethr-icon">
+                <i class="icon-thumbs-up" tal:condition="wan['status'] == 'Good'"></i>
+                <i class="icon-thumbs-down" tal:condition="wan['status'] == 'Slow'"></i>
+                <i class="icon-remove" tal:condition="wan['status'] not in ('Good', 'Slow')"></i>
+            </div>
+            <p>
+            <div>Wi-Fi: ${'GOOD' if wifi['up'] else 'NOT RUNNING'}</div>
+            <div tal:condition="wifi['up']">
+                Essid: ${wifi['essid']}
+            </div>
+            </p>
+            <p>
+            <div>WAN: ${wan['status']}
+                <span tal:condition="wan['rate']">${wan['rate']}</span>
+            </div>
+            </p>
+            <p>
+                <a href="${manage_networks_url}">Manage networks</a>
+            </p>
         </div>
         <div class="span4 tethr-panel">
             Power
