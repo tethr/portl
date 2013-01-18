@@ -8,6 +8,6 @@ class UIRoot(object):
         pass
 
 
-@view_config(context=UIRoot, renderer='templates/admin.pt')
-def admin(context, request):
+@view_config(context=UIRoot, renderer='templates/overview.pt')
+def overview(context, request):
     return {}
