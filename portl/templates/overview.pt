@@ -1,21 +1,26 @@
 <html metal:use-macro="main_template">
     <div metal:fill-slot="content" class="row-fluid">
+
+        <!-- Networking panel -->
         <div class="span4 tethr-panel">
-            <div class="tethr-icon">
+            <div>
                 <i class="icon-ok" tal:condition="wifi['up']"></i>
                 <i class="icon-remove" tal:condition="not wifi['up']"></i>
             </div>
-            <div class="tethr-icon">
-                <i class="icon-thumbs-up" tal:condition="wan['status'] == 'Good'"></i>
-                <i class="icon-thumbs-down" tal:condition="wan['status'] == 'Slow'"></i>
-                <i class="icon-remove" tal:condition="wan['status'] not in ('Good', 'Slow')"></i>
-            </div>
-            <p>
-            <div>Wi-Fi: ${'GOOD' if wifi['up'] else 'NOT RUNNING'}</div>
+           <p>
+            <div>Wi-Fi: ${'Good' if wifi['up'] else 'Not Running'}</div>
             <div tal:condition="wifi['up']">
                 Essid: ${wifi['essid']}
             </div>
             </p>
+            <div>
+               <i class="icon-thumbs-up" 
+                  tal:condition="wan['status'] == 'Good'"></i>
+               <i class="icon-thumbs-down" 
+                   tal:condition="wan['status'] == 'Slow'"></i>
+               <i class="icon-remove" 
+                   tal:condition="wan['status'] not in ('Good', 'Slow')"></i>
+            </div>
             <p>
             <div>WAN: ${wan['status']}
                 <span tal:condition="wan['rate']">${wan['rate']}</span>
@@ -25,11 +30,34 @@
                 <a href="${manage_networks_url}">Manage networks</a>
             </p>
         </div>
+
+        <!-- Power panel -->
         <div class="span4 tethr-panel">
-            Power
+            <div><i class="icon-heart"></i></div>
+            <p><div>${battery['percent_left']}% 
+              <span tal:condition="battery['time_left']">
+                  ${battery['time_left']} left</span></div></p>
+            <div>
+                <i class="icon-ok" tal:condition="solar['sunny']"></i>
+                <i class="icon-remove" tal:condition="not solar['sunny']"></i>
+            </div>
+            <p>
+            <div>
+                ${solar['output']} V
+            </div>
+            </p>
+            <p>
+                <a href="${power_log_url}">View Log</a>
+            </p>
         </div>
+
+        <!-- File synchronization panel -->
         <div class="span4 tethr-panel">
-            File Synchronization
+            <div><i class="icon-heart"></i></div>
+            <p><div>Last-sync: ${files['last_sync']}</div></p>
+            <p>
+                <a href="${manage_sync_url}">Manage File Synchronization</a>
+            </p>
         </div>
     </div>
 </html>

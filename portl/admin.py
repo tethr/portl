@@ -19,6 +19,9 @@ def overview(context, request):
     data['manage_sync_url'] = '#'
     if data['wan']['rate']:
         data['wan']['rate'] = format_bps(data['wan']['rate'])
+    if data['battery']['time_left']:
+        data['battery']['time_left'] = format_time_left(
+            data['battery']['time_left'])
     return data
 
 
@@ -41,6 +44,19 @@ def format_bps(bps):
         return '%0.2f mbps' % (bps/1e6)
     else:
         return '%0.2f gbps' % (bps/1e9)
+
+
+def format_time_left(seconds):
+    seconds = int(seconds)
+    if seconds < 60:
+        return str(seconds) + 's'
+    minutes = int(seconds / 60)
+    seconds = seconds % 60
+    if minutes < 60:
+        return '%dm %ds' % (minutes, seconds)
+    hours = int(minutes / 60)
+    minutes = hours % 60
+    return '%dh %dm %ds' % (hours, minutes, seconds)
 
 
 DUMMY_OVERVIEW_DATA = {
