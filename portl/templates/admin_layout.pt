@@ -25,6 +25,9 @@
                -moz-box-shadow: 0 1px 2px rgba(0,0,0,.05);
                     box-shadow: 0 1px 2px rgba(0,0,0,.05);
           }
+          .tethr-icon {
+              width: 25%;
+          }
         </style>
         <link href="${layout.static('bootstrap-2.2.2/css/bootstrap-responsive.min.css')}"
               rel="stylesheet" media="screen"/>

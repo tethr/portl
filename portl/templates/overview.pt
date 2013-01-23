@@ -3,23 +3,25 @@
 
         <!-- Networking panel -->
         <div class="span4 tethr-panel">
-            <div>
-                <i class="icon-ok" tal:condition="wifi['up']"></i>
-                <i class="icon-remove" tal:condition="not wifi['up']"></i>
+            <div class="tethr-icon">
+                <img src="${layout.static('img/wifi.svg')}" alt="Wifi Up"
+                     tal:condition="wifi['up']"/>
+                <img src="${layout.static('img/wifi.svg')}" alt="Wifi Down"
+                     tal:condition="not wifi['up']"/>
             </div>
-           <p>
+            <p>
             <div>Wi-Fi: ${'Good' if wifi['up'] else 'Not Running'}</div>
             <div tal:condition="wifi['up']">
                 Essid: ${wifi['essid']}
             </div>
             </p>
-            <div>
-               <i class="icon-thumbs-up" 
-                  tal:condition="wan['status'] == 'Good'"></i>
-               <i class="icon-thumbs-down" 
-                   tal:condition="wan['status'] == 'Slow'"></i>
-               <i class="icon-remove" 
-                   tal:condition="wan['status'] not in ('Good', 'Slow')"></i>
+            <div class="tethr-icon">
+                <img src="${layout.static('img/wifi.svg')}" alt="Wan Good"
+                  tal:condition="wan['status'] == 'Good'">
+                <img src="${layout.static('img/wifi.svg')}" alt="Wan Slow"
+                   tal:condition="wan['status'] == 'Slow'">
+                <img src="${layout.static('img/wifi.svg')}" alt="Wan Down"
+                   tal:condition="wan['status'] not in ('Good', 'Slow')">
             </div>
             <p>
             <div>WAN: ${wan['status']}
@@ -33,13 +35,17 @@
 
         <!-- Power panel -->
         <div class="span4 tethr-panel">
-            <div><i class="icon-heart"></i></div>
+            <div class="tethr-icon">
+                <img src="${layout.static('img/battery.svg')}" alt="Battery">
+            </div>
             <p><div>${battery['percent_left']}% 
               <span tal:condition="battery['time_left']">
                   ${battery['time_left']} left</span></div></p>
-            <div>
-                <i class="icon-ok" tal:condition="solar['sunny']"></i>
-                <i class="icon-remove" tal:condition="not solar['sunny']"></i>
+            <div class="tethr-icon">
+                <img src="${layout.static('img/sun.svg')}" alt="Sun" 
+                     tal:condition="solar['sunny']">
+                <img src="${layout.static('img/clouds.svg')}" alt="Clouds" 
+                     tal:condition="not solar['sunny']">
             </div>
             <p>
             <div>
@@ -53,7 +59,12 @@
 
         <!-- File synchronization panel -->
         <div class="span4 tethr-panel">
-            <div><i class="icon-heart"></i></div>
+            <div class="tethr-icon">
+                <img src="${layout.static('img/files-green.svg')}" alt="Synched" 
+                     tal:condition="files['in_sync']">
+                <img src="${layout.static('img/sync.svg')}" alt="In progress" 
+                     tal:condition="not files['in_sync']">
+            </div>
             <p><div>Last-sync: ${files['last_sync']}</div></p>
             <p>
                 <a href="${manage_sync_url}">Manage File Synchronization</a>
