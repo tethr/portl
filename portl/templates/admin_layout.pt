@@ -6,14 +6,11 @@
         <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
         <link href="${layout.static('bootstrap-2.2.2/css/bootstrap.min.css')}"
               rel="stylesheet" media="screen"/>
-        <link href="${layout.static('bootstrap-2.2.2/css/bootstrap-responsive.min.css')}"
-              rel="stylesheet" media="screen"/>
         <link href="${layout.deform('css/form.css')}"
               rel="stylesheet" media="screen"/>
         <style type="text/css">
           body {
-            padding-top: 10px;
-            padding-bottom: 10px;
+            padding-top: 45px;
             background-color: #f5f5f5;
           }
 
@@ -28,9 +25,27 @@
                -moz-box-shadow: 0 1px 2px rgba(0,0,0,.05);
                     box-shadow: 0 1px 2px rgba(0,0,0,.05);
           }
-       </style>
+        </style>
+        <link href="${layout.static('bootstrap-2.2.2/css/bootstrap-responsive.min.css')}"
+              rel="stylesheet" media="screen"/>
     </head>
     <body>
+            <div class="navbar navbar-inverse navbar-fixed-top">
+                <div class="navbar-inner">
+                    <!-- It doesn't seem like I should have to tweak the left
+                         margin here.  But with some (but not all) screen sizes,
+                         the "brand" element winds up hugging the left with no
+                         margin unless we explicitly set one.
+                    -->
+                    <a class="brand" href="#" style="margin-left: 10px">Tethr</a>
+                    <ul class="nav">
+                        <li class="active"><a href="#">Overview</a></li>
+                        <li><a href="#">Network</a></li>
+                        <li><a href="#">Power</a></li>
+                        <li><a href="#">File Sync</a></li>
+                    </ul>
+                </div>
+            </div>
         <div class="container-fluid">
             <metal:block define-slot="content">Page content goes here.</metal:block> 
         </div>
