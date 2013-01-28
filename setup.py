@@ -6,8 +6,10 @@ import sys
 VERSION = '0.1dev'
 
 requires = [
+    'Babel',
     'deform',
     'deform_bootstrap',
+    'lingua',
     'pyramid',
     'pyramid_layout',
     'waitress',
@@ -58,6 +60,10 @@ setup(name='portl',
           'docs': doc_extras,
       },
       test_suite="portl.tests",
+      message_extractors={'portl': [
+          ('**.py', 'lingua_python', None),
+          ('**.pt', 'lingua_xml', None),
+      ]},
       entry_points="""\
       [paste.app_factory]
       main = portl.application:main

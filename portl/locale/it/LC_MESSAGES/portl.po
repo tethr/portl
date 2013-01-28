@@ -1,0 +1,22 @@
+# Italian translations for portl.
+# Copyright (C) 2013 ORGANIZATION
+# This file is distributed under the same license as the portl project.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2013.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: portl 0.1dev\n"
+"Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
+"POT-Creation-Date: 2013-01-24 13:23-0500\n"
+"PO-Revision-Date: 2013-01-24 13:36-0500\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: it <LL@li.org>\n"
+"Plural-Forms: nplurals=2; plural=(n != 1)\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: Babel 0.9.6\n"
+
+#: portl/templates/overview.pt:33
+msgid "Manage networks"
+msgstr "Amministrare reti"

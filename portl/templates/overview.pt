@@ -1,4 +1,5 @@
-<html metal:use-macro="main_template">
+<html metal:use-macro="main_template"
+      xmlns:i18n="http://xml.zope.org/namespaces/i18n">
     <div metal:fill-slot="content" class="row-fluid">
 
         <!-- Networking panel -->
@@ -17,11 +18,11 @@
             </p>
             <div class="tethr-icon">
                 <img src="${layout.static('img/wifi.svg')}" alt="Wan Good"
-                  tal:condition="wan['status'] == 'Good'">
+                  tal:condition="wan['status'] == 'Good'"/>
                 <img src="${layout.static('img/wifi.svg')}" alt="Wan Slow"
-                   tal:condition="wan['status'] == 'Slow'">
+                   tal:condition="wan['status'] == 'Slow'"/>
                 <img src="${layout.static('img/wifi.svg')}" alt="Wan Down"
-                   tal:condition="wan['status'] not in ('Good', 'Slow')">
+                   tal:condition="wan['status'] not in ('Good', 'Slow')"/>
             </div>
             <p>
             <div>WAN: ${wan['status']}
@@ -29,23 +30,24 @@
             </div>
             </p>
             <p>
-                <a href="${manage_networks_url}">Manage networks</a>
+            <a href="${manage_networks_url}" 
+               i18n:translate="" i18n:domain="portl">Manage networks</a>
             </p>
         </div>
 
         <!-- Power panel -->
         <div class="span4 tethr-panel">
             <div class="tethr-icon">
-                <img src="${layout.static('img/battery.svg')}" alt="Battery">
+                <img src="${layout.static('img/battery3.svg')}" alt="Battery"/>
             </div>
             <p><div>${battery['percent_left']}% 
               <span tal:condition="battery['time_left']">
                   ${battery['time_left']} left</span></div></p>
             <div class="tethr-icon">
                 <img src="${layout.static('img/sun.svg')}" alt="Sun" 
-                     tal:condition="solar['sunny']">
+                     tal:condition="solar['sunny']"/>
                 <img src="${layout.static('img/clouds.svg')}" alt="Clouds" 
-                     tal:condition="not solar['sunny']">
+                     tal:condition="not solar['sunny']"/>
             </div>
             <p>
             <div>
@@ -61,9 +63,9 @@
         <div class="span4 tethr-panel">
             <div class="tethr-icon">
                 <img src="${layout.static('img/files-green.svg')}" alt="Synched" 
-                     tal:condition="files['in_sync']">
+                     tal:condition="files['in_sync']"/>
                 <img src="${layout.static('img/sync.svg')}" alt="In progress" 
-                     tal:condition="not files['in_sync']">
+                     tal:condition="not files['in_sync']"/>
             </div>
             <p><div>Last-sync: ${files['last_sync']}</div></p>
             <p>
