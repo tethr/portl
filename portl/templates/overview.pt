@@ -29,35 +29,36 @@
 
         <!-- Networking panel -->
         <li>
-            <div class="tethr-icon">
-                <img src="${layout.static('img/wifi.svg')}" alt="Wifi Up"
-                     tal:condition="wifi['up']"/>
-                <img src="${layout.static('img/wifi.svg')}" alt="Wifi Down"
-                     tal:condition="not wifi['up']"/>
-            </div>
-            <p>
-            <div>Wi-Fi: ${'Good' if wifi['up'] else 'Not Running'}</div>
-            <div tal:condition="wifi['up']">
-                Essid: ${wifi['essid']}
-            </div>
-            </p>
-            <div class="tethr-icon">
-                <img src="${layout.static('img/wifi.svg')}" alt="Wan Good"
-                  tal:condition="wan['status'] == 'Good'"/>
-                <img src="${layout.static('img/wifi.svg')}" alt="Wan Slow"
-                   tal:condition="wan['status'] == 'Slow'"/>
-                <img src="${layout.static('img/wifi.svg')}" alt="Wan Down"
-                   tal:condition="wan['status'] not in ('Good', 'Slow')"/>
-            </div>
-            <p>
-            <div>WAN: ${wan['status']}
-                <span tal:condition="wan['rate']">${wan['rate']}</span>
-            </div>
-            </p>
-            <p>
-            <a href="${manage_networks_url}" 
-               i18n:translate="" i18n:domain="portl">Manage networks</a>
-            </p>
+            <tal:block repeat="dev network_status">
+                <div class="tethr-icon">
+                    <img src="${layout.static('img/wifi.svg')}" alt="Wifi Up">
+                </div>
+                <p>
+                    <div>
+                        <b tal:condition="dev.type == 'ethernet'">Ethernet (${dev.name})</b>
+                        <b tal:condition="dev.type == 'wifi'">Wi-Fi (${dev.name})</b>
+                    </div>
+                    <div>
+                        <i tal:condition="dev.active">Active</i>
+                        <i tal:condition="not dev.active">Inactive</i>
+                    </div>
+                </p>
+                <p tal:condition="dev.ipv4">
+                    <div><b>IPv4 address</b></div>
+                    <div>${dev.ipv4}</div>
+                </p>
+                <p tal:condition="dev.ipv6">
+                    <div><b>IPv6 addresses</b></div>
+                    <div tal:repeat="addr dev.ipv6">${addr}</div>
+                </p>
+                <tal:block tal:condition="dev.type =='wifi'">
+                    <p tal:condition="dev.ssid">
+                        <div><b>SSID</b></div>
+                        <div>${dev.ssid}</div>
+                    </p>
+                </tal:block>
+
+            </tal:block>
         </li>
 
         <!-- Power panel -->

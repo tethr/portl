@@ -7,11 +7,13 @@ VERSION = '0.1dev'
 
 requires = [
     'Babel',
+#    'dbus-python',  [1]
     'deform',
     'deform_bootstrap',
     'lingua',
     'pyramid',
     'pyramid_layout',
+    'python-networkmanager',
     'waitress',
 ]
 tests_require = requires + []
@@ -68,3 +70,8 @@ setup(name='portl',
       [paste.app_factory]
       main = portl.application:main
       """)
+
+####
+# [1] dbus-python is technically a dependency but they don't publish an
+# easy_installable egg and setuptools doesn't detect when it's already installed
+# as a system package.

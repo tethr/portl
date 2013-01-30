@@ -4,6 +4,9 @@ import os
 
 from pyramid.view import view_config
 
+from .network import NetworkStatus
+
+
 class UIRoot(object):
     """
     Root object.
@@ -14,8 +17,10 @@ class UIRoot(object):
 
 @view_config(context=UIRoot, renderer='templates/overview.pt')
 def overview(context, request):
-    data = get_dummy_overview_data(request)
-    data['manage_networks_url'] = '#'
+    data = {
+        'network_status': NetworkStatus()
+    }
+    data.update(get_dummy_overview_data(request))
     data['power_log_url'] = '#'
     data['manage_sync_url'] = '#'
     if data['wan']['rate']:
@@ -61,14 +66,6 @@ def format_time_left(seconds):
 
 
 DUMMY_OVERVIEW_DATA = {
-    'wifi': {
-        'up': True,
-        'essid': 'Tethr',
-    },
-    'wan': {
-        'status': 'Good',
-        'rate': 1e6  # bits per second
-    },
     'battery': {
         'charging': True,
         'percent_left': 20,
