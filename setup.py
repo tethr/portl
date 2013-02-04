@@ -10,6 +10,8 @@ requires = [
 #    'dbus-python',  [1]
     'deform',
     'deform_bootstrap',
+    'gevent',
+    'gunicorn',
     'lingua',
     'pyramid',
     'pyramid_layout',
