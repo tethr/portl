@@ -1,10 +1,17 @@
+import gevent
 import json
 import math
 import os
+import socketio
+import socketio.namespace
 
+from pyramid.response import Response
 from pyramid.view import view_config
 
 from .network import NetworkStatus
+
+
+status_loop = None
 
 
 class UIRoot(object):
@@ -20,7 +27,7 @@ def overview(context, request):
     layout = request.layout_manager.layout
     layout.use_template('network')
     data = {
-        'network_status': NetworkStatus()
+        'network_status': NetworkStatus().as_json()
     }
     layout.set_json_data(data)
 
@@ -33,6 +40,42 @@ def overview(context, request):
         data['battery']['time_left'] = format_time_left(
             data['battery']['time_left'])
     return data
+
+
+@view_config(context=UIRoot, name="socket.io")
+def status_io(request):
+    start_status_loop(request)
+    socketio.socketio_manage(
+        request.environ, {'/status': socketio.namespace.BaseNamespace},
+        request=request)
+    return Response('')
+
+
+def poll_network(server):
+    prev = None
+    while True:
+        gevent.sleep(1)
+        status = {'network_status': NetworkStatus().as_json()}
+        if status == prev:
+            continue
+        prev = status
+        packet = {
+            'type': 'event',
+            'name': 'network',
+            'args': status,
+            'endpoint': '/status'}
+        for socket in server.sockets.itervalues():
+            socket.send_packet(packet)
+
+
+def start_status_loop(request):
+    global status_loop
+    if status_loop is not None:
+        return
+
+    print 'Start loop'
+    socket = request.environ['socketio']
+    status_loop = gevent.spawn(poll_network, socket.server)
 
 
 def get_dummy_overview_data(request):

@@ -1,4 +1,5 @@
-from pyramid.renderers import render
+import json
+
 from pyramid_layout.layout import layout_config
 from pyramid_layout.panel import panel_config
 
@@ -25,7 +26,7 @@ class Layout(object):
         self.client_templates.extend(args)
 
     def set_json_data(self, data):
-        self.data = render('json', data)
+        self.data = json.dumps(data)
 
 
 @layout_config(context=WizardForm, template='templates/wizard_layout.pt')

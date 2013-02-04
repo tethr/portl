@@ -80,6 +80,7 @@
         </nav>
     </footer>
     <metal:block fill-slot="tail-script">
+        <script src="${layout.static('js/socket.io.js')}"></script>
         <script src="${layout.static('js/swipe.js')}"></script>
         <script>
             /* Set up swiping panes. */
@@ -96,6 +97,21 @@
 
             /* Initialize the network pane. */
             portl.update_network(page_data["network_status"]);
+
+            /* Start socket.io */
+            $(document).ready(function() {
+                WEB_SOCKET_SWF_LOCATION = "/static/WebSocketMain.swf";
+                WEB_SOCKET_DEBUG = true;
+                var socket = io.connect('/status');
+
+                $(window).bind("beforeunload", function() {
+                        socket.disconnect();
+                });
+
+                socket.on("network", function(data) {
+                    portl.update_network(data["network_status"]);
+                });
+            });
         </script>
     </metal:block>
 </html>

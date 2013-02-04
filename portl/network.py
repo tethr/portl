@@ -11,6 +11,9 @@ class NetworkStatus(list):
         for device in netman.GetDevices():
             self.append(make_device(device))
 
+    def as_json(self):
+        return [device.as_json() for device in self]
+
 
 def make_device(device):
     t = device.DeviceType
@@ -37,7 +40,7 @@ class Device(object):
         return '\n'.join([self.type] + [
             '\t%s=%s' % attr for attr in self.__dict__.items()])
 
-    def __json__(self, request):
+    def as_json(self):
         return dict([(k, v) for k, v in self.__dict__.items()
                 if not k.startswith('_')])
 

@@ -11,7 +11,9 @@ requires = [
     'deform',
     'deform_bootstrap',
     'gevent',
-    'gunicorn',
+    'gevent-socketio',
+    # See https://github.com/abourget/gevent-socketio/pull/122
+    'gunicorn==0.16.1',
     'lingua',
     'pyramid',
     'pyramid_layout',
