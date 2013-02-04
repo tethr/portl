@@ -25,15 +25,21 @@ def make_device(device):
 class Device(object):
 
     def __init__(self, device):
-        self.name = device.Interface
+        self.name = str(device.Interface)
         self.ipv4 = ip4(device.Ip4Address)
         self.ipv6 = ip6(device.Ip6Config)
-        self.state = const('device_state', device.State)
+        self.state = str(const('device_state', device.State))
         self.active = self.state == 'activated'
+        self.wifi = self.type == 'wifi'
+        self.type = self.type  # Move to instance for sake of __json__
 
     def __str__(self):
         return '\n'.join([self.type] + [
             '\t%s=%s' % attr for attr in self.__dict__.items()])
+
+    def __json__(self, request):
+        return dict([(k, v) for k, v in self.__dict__.items()
+                if not k.startswith('_')])
 
 
 class EthernetDevice(Device):
@@ -47,8 +53,11 @@ class WifiDevice(Device):
         super(WifiDevice, self).__init__(device)
         device = device.SpecificDevice()
         self.bitrate = device.Bitrate
-        self.ap = device.ActiveAccessPoint
-        self.ssid = ''.join([chr(b) for b in self.ap.Ssid])
+        self._ap = device.ActiveAccessPoint
+        if hasattr(self._ap, 'Ssid'):
+            self.ssid = ''.join([chr(b) for b in self._ap.Ssid])
+        else:
+            self.ssid = None
 
 
 class UnknownDevice(Device):

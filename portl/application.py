@@ -1,4 +1,6 @@
 import os
+import pkg_resources
+
 from pyramid.config import Configurator
 
 from .admin import UIRoot
@@ -25,8 +27,18 @@ def main(global_config, **config):
     config.add_static_view('static', 'portl:static')
     config.add_static_view('deform', 'deform:static')
     config.add_translation_dirs("portl:locale")
+    config_client_templates(config)
     config.scan()
     return config.make_wsgi_app()
+
+
+def config_client_templates(config):
+    for fname in pkg_resources.resource_listdir('portl', 'templates/client'):
+        if not fname.endswith('.pt'):
+            continue
+        renderer = 'portl:/templates/client/' + fname
+        name = fname[:-3]
+        config.add_panel(name=name, renderer=renderer)
 
 
 def find_root(request):

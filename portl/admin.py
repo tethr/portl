@@ -17,10 +17,14 @@ class UIRoot(object):
 
 @view_config(context=UIRoot, renderer='templates/overview.pt')
 def overview(context, request):
+    layout = request.layout_manager.layout
+    layout.use_template('network')
     data = {
         'network_status': NetworkStatus()
     }
-    data.update(get_dummy_overview_data(request))
+    layout.set_json_data(data)
+
+    data = get_dummy_overview_data(request)
     data['power_log_url'] = '#'
     data['manage_sync_url'] = '#'
     if data['wan']['rate']:

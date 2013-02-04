@@ -66,6 +66,9 @@
         </style>
         <link href="${layout.static('bootstrap-2.2.2/css/bootstrap-responsive.min.css')}"
               rel="stylesheet" media="screen"/>
+        <script>
+            var page_data = ${layout.data};
+        </script>
     </head>
     <body>
         <metal:block define-slot="navbar"></metal:block>
@@ -76,6 +79,9 @@
         <script src="${layout.static('js/jquery-1.9.0.min.js')}"></script>
         <script src="${layout.static('bootstrap-2.2.2/js/bootstrap.min.js')}"></script>
         <script src="${layout.deform('scripts/deform.js')}"></script>
+        ${panel('client-templates')}
+        <script src="${layout.static('js/handlebars.js')}"></script>
+        <script src="${layout.static('js/portl.js')}"></script>
         <script metal:define-slot="tail-script"></script>
     </body>
 </html>

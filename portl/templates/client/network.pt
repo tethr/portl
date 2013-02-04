@@ -1,0 +1,40 @@
+{{#each this}}
+    <div class="tethr-icon">
+        <img src="${layout.static('img/wifi.svg')}" alt="Wifi Up">
+    </div>
+    <p>
+        <div>
+            <b>{{type}}</b> ({{name}})
+        </div>
+        <div>
+            {{#if active}}<i>Active</i>{{/if}}
+            {{#unless active}}<i>Inactive</i>{{/unless}}
+        </div>
+    </p>
+
+    {{#if ipv4}}
+    <p>
+        <div><b>IPv4 address</b></div>
+        <div>{{ipv4}}</div>
+    </p>
+    {{/if}}
+
+    {{#if ipv6}}
+    <p>
+        <div><b>IPv6 addresses</b></div>
+        {{#each ipv6}}
+        <div>{{this}}</div>
+        {{/each}}
+    </p>
+    {{/if}}
+
+    {{#if wifi}}
+    {{#if ssid}}
+        <p>
+            <div><b>SSID</b></div>
+            <div>{{ssid}}</div>
+        </p>
+    {{/if}}
+    {{/if}}
+
+{{/each}}

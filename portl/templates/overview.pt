@@ -28,38 +28,7 @@
     <div metal:fill-slot="content" id="slider"><ul>
 
         <!-- Networking panel -->
-        <li>
-            <tal:block repeat="dev network_status">
-                <div class="tethr-icon">
-                    <img src="${layout.static('img/wifi.svg')}" alt="Wifi Up">
-                </div>
-                <p>
-                    <div>
-                        <b tal:condition="dev.type == 'ethernet'">Ethernet (${dev.name})</b>
-                        <b tal:condition="dev.type == 'wifi'">Wi-Fi (${dev.name})</b>
-                    </div>
-                    <div>
-                        <i tal:condition="dev.active">Active</i>
-                        <i tal:condition="not dev.active">Inactive</i>
-                    </div>
-                </p>
-                <p tal:condition="dev.ipv4">
-                    <div><b>IPv4 address</b></div>
-                    <div>${dev.ipv4}</div>
-                </p>
-                <p tal:condition="dev.ipv6">
-                    <div><b>IPv6 addresses</b></div>
-                    <div tal:repeat="addr dev.ipv6">${addr}</div>
-                </p>
-                <tal:block tal:condition="dev.type =='wifi'">
-                    <p tal:condition="dev.ssid">
-                        <div><b>SSID</b></div>
-                        <div>${dev.ssid}</div>
-                    </p>
-                </tal:block>
-
-            </tal:block>
-        </li>
+        <li id="network-panel"></li> 
 
         <!-- Power panel -->
         <li>
@@ -113,6 +82,7 @@
     <metal:block fill-slot="tail-script">
         <script src="${layout.static('js/swipe.js')}"></script>
         <script>
+            /* Set up swiping panes. */
             var navItems = $("ul.nav li");
             var bullets = $("nav #position em");
             var slider = new Swipe(document.getElementById('slider'), {
@@ -123,6 +93,9 @@
                     $(bullets[pos]).addClass("active");
                 }
             });
+
+            /* Initialize the network pane. */
+            portl.update_network(page_data["network_status"]);
         </script>
     </metal:block>
 </html>
