@@ -73,6 +73,8 @@ setup(name='portl',
       entry_points="""\
       [paste.app_factory]
       main = portl.application:main
+      [console_scripts]
+      monitor = portl.events:main
       """)
 
 ####

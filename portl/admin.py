@@ -1,4 +1,5 @@
 import gevent
+import gevent.queue
 import json
 import math
 import os
@@ -11,6 +12,7 @@ from pyramid.view import view_config
 from .network import NetworkStatus
 
 
+network_events = gevent.queue.Queue()
 status_loop = None
 
 
@@ -51,14 +53,17 @@ def status_io(request):
     return Response('')
 
 
+@view_config(context=UIRoot, name="notify_network_event")
+def notify_network_event(request):
+    # FIXME make sure request is coming from our local notification daemon
+    # and not some hooligans.
+    network_events.put(request.json_body)
+    return Response('')
+
+
 def poll_network(server):
-    prev = None
     while True:
-        gevent.sleep(1)
-        status = {'network_status': NetworkStatus().as_json()}
-        if status == prev:
-            continue
-        prev = status
+        status = {'network_status': network_events.get()}
         packet = {
             'type': 'event',
             'name': 'network',
@@ -66,6 +71,7 @@ def poll_network(server):
             'endpoint': '/status'}
         for socket in server.sockets.itervalues():
             socket.send_packet(packet)
+        gevent.sleep(0) # theoretically unnecessary
 
 
 def start_status_loop(request):
