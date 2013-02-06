@@ -3,6 +3,7 @@ import gevent.queue
 import json
 import math
 import os
+import redis
 import socketio
 import socketio.namespace
 
@@ -53,25 +54,24 @@ def status_io(request):
     return Response('')
 
 
-@view_config(context=UIRoot, name="notify_network_event")
-def notify_network_event(request):
-    # FIXME make sure request is coming from our local notification daemon
-    # and not some hooligans.
-    network_events.put(request.json_body)
-    return Response('')
-
-
-def poll_network(server):
-    while True:
-        status = {'network_status': network_events.get()}
-        packet = {
-            'type': 'event',
-            'name': 'network',
-            'args': status,
-            'endpoint': '/status'}
-        for socket in server.sockets.itervalues():
-            socket.send_packet(packet)
-        gevent.sleep(0) # theoretically unnecessary
+def listen_netmon(server):
+    channel = 'tethr.status.network'
+    pubsub = redis.StrictRedis().pubsub()
+    pubsub.psubscribe(channel)
+    try:
+        for event in pubsub.listen():
+            if event['type'] != 'pmessage':
+                continue
+            packet = {
+                'type': 'event',
+                'name': 'network',
+                'args': {'network_status': json.loads(event['data'])},
+                'endpoint': '/status'}
+            for socket in server.sockets.itervalues():
+                socket.send_packet(packet)
+            gevent.sleep(0) # theoretically unnecessary, safety hedge
+    finally:
+        pubsub.punsubscribe(channel)
 
 
 def start_status_loop(request):
@@ -79,9 +79,8 @@ def start_status_loop(request):
     if status_loop is not None:
         return
 
-    print 'Start loop'
     socket = request.environ['socketio']
-    status_loop = gevent.spawn(poll_network, socket.server)
+    status_loop = gevent.spawn(listen_netmon, socket.server)
 
 
 def get_dummy_overview_data(request):

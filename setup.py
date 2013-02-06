@@ -18,6 +18,7 @@ requires = [
     'pyramid',
     'pyramid_layout',
     'python-networkmanager',
+    'redis',
     'waitress',
 ]
 tests_require = requires + []
@@ -74,7 +75,7 @@ setup(name='portl',
       [paste.app_factory]
       main = portl.application:main
       [console_scripts]
-      monitor = portl.events:main
+      netmon = portl.netmon:main
       """)
 
 ####
