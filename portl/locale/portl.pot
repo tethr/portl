@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: portl 0.1dev\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2013-01-24 13:23-0500\n"
+"POT-Creation-Date: 2013-02-07 11:49-0500\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -17,7 +17,55 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Generated-By: Babel 0.9.6\n"
 
-#: portl/templates/overview.pt:33
-msgid "Manage networks"
+#: portl/network.py:106
+msgid "Unknown"
+msgstr ""
+
+#: portl/network.py:107
+msgid "Unmanaged"
+msgstr ""
+
+#: portl/network.py:108
+msgid "Unavailable"
+msgstr ""
+
+#: portl/network.py:109
+msgid "Disconnected"
+msgstr ""
+
+#: portl/network.py:110
+msgid "Preparing"
+msgstr ""
+
+#: portl/network.py:111
+msgid "Configuring"
+msgstr ""
+
+#: portl/network.py:112
+msgid "Authentication required"
+msgstr ""
+
+#: portl/network.py:113
+msgid "Configuring address"
+msgstr ""
+
+#: portl/network.py:114
+msgid "Checking address"
+msgstr ""
+
+#: portl/network.py:115
+msgid "Secondaries"
+msgstr ""
+
+#: portl/network.py:116
+msgid "Active"
+msgstr ""
+
+#: portl/network.py:117
+msgid "Deactivating"
+msgstr ""
+
+#: portl/network.py:118
+msgid "Failed"
 msgstr ""
 

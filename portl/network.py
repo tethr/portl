@@ -1,7 +1,11 @@
+from pyramid.i18n import get_localizer
+from pyramid.i18n import TranslationStringFactory
+
 import NetworkManager as NETMAN
 from NetworkManager import NetworkManager as netman
 
 const = NETMAN.const
+_ = TranslationStringFactory('portl')
 
 
 class NetworkStatus(list):
@@ -31,8 +35,8 @@ class Device(object):
         self.name = str(device.Interface)
         self.ipv4 = ip4(device.Ip4Address)
         self.ipv6 = ip6(device.Ip6Config)
-        self.state = str(const('device_state', device.State))
-        self.active = self.state == 'activated'
+        self.state = device.State
+
         self.wifi = self.type == 'wifi'
         self.type = self.type  # Move to instance for sake of __json__
 
@@ -98,6 +102,33 @@ def ip6(config):
                 break
         addrs.append(':'.join(['%x' % part if part else '' for part in parts]))
     return addrs
+
+
+DEVICE_STATES = {
+    NETMAN.NM_DEVICE_STATE_UNKNOWN: _('Unknown'),
+    NETMAN.NM_DEVICE_STATE_UNMANAGED: _('Unmanaged'),
+    NETMAN.NM_DEVICE_STATE_UNAVAILABLE: _('Unavailable'),
+    NETMAN.NM_DEVICE_STATE_DISCONNECTED: _('Disconnected'),
+    NETMAN.NM_DEVICE_STATE_PREPARE: _('Preparing'),
+    NETMAN.NM_DEVICE_STATE_CONFIG: _('Configuring'),
+    NETMAN.NM_DEVICE_STATE_NEED_AUTH: _('Authentication required'),
+    NETMAN.NM_DEVICE_STATE_IP_CONFIG: _('Configuring address'),
+    NETMAN.NM_DEVICE_STATE_IP_CHECK: _('Checking address'),
+    NETMAN.NM_DEVICE_STATE_SECONDARIES: _('Secondaries'),
+    NETMAN.NM_DEVICE_STATE_ACTIVATED: _('Active'),
+    NETMAN.NM_DEVICE_STATE_DEACTIVATING: _('Deactivating'),
+    NETMAN.NM_DEVICE_STATE_FAILED: _('Failed')
+}
+
+DEVICE_STATE_UNKNOWN = DEVICE_STATES[NETMAN.NM_DEVICE_STATE_UNKNOWN]
+
+
+def format_network_status(status, request):
+    locale = get_localizer(request)
+    for device in status:
+        state = DEVICE_STATES.get(device['state'], DEVICE_STATE_UNKNOWN)
+        device['state'] = locale.translate(state)
+    return status
 
 
 if __name__ == '__main__':

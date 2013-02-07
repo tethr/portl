@@ -7,9 +7,11 @@ import redis
 import socketio
 import socketio.namespace
 
+from pyramid.i18n import get_locale_name
 from pyramid.response import Response
 from pyramid.view import view_config
 
+from .network import format_network_status
 from .network import NetworkStatus
 
 
@@ -30,7 +32,8 @@ def overview(context, request):
     layout = request.layout_manager.layout
     layout.use_template('network')
     data = {
-        'network_status': NetworkStatus().as_json()
+        'network_status': format_network_status(NetworkStatus().as_json(),
+                                                request)
     }
     layout.set_json_data(data)
 
@@ -62,12 +65,14 @@ def listen_netmon(server):
         for event in pubsub.listen():
             if event['type'] != 'pmessage':
                 continue
+            status = json.loads(event['data'])
             packet = {
                 'type': 'event',
                 'name': 'network',
-                'args': {'network_status': json.loads(event['data'])},
                 'endpoint': '/status'}
             for socket in server.sockets.itervalues():
+                formatted = format_network_status(status, socket.request)
+                packet['args'] = {'network_status': formatted}
                 socket.send_packet(packet)
             gevent.sleep(0) # theoretically unnecessary, safety hedge
     finally:
@@ -115,6 +120,7 @@ def format_time_left(seconds):
     hours = int(minutes / 60)
     minutes = hours % 60
     return '%dh %dm %ds' % (hours, minutes, seconds)
+
 
 
 DUMMY_OVERVIEW_DATA = {

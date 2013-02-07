@@ -6,10 +6,7 @@
         <div>
             <b>{{type}}</b> ({{name}})
         </div>
-        <div>
-            {{#if active}}<i>Active</i>{{/if}}
-            {{#unless active}}<i>Inactive</i>{{/unless}}
-        </div>
+        <div><i>{{state}}</i></div>
     </p>
 
     {{#if ipv4}}

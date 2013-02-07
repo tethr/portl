@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: portl 0.1dev\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2013-01-24 13:23-0500\n"
+"POT-Creation-Date: 2013-02-07 11:49-0500\n"
 "PO-Revision-Date: 2013-01-24 13:36-0500\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: it <LL@li.org>\n"
@@ -17,6 +17,55 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Generated-By: Babel 0.9.6\n"
 
-#: portl/templates/overview.pt:33
-msgid "Manage networks"
-msgstr "Amministrare reti"
+#: portl/network.py:106
+msgid "Unknown"
+msgstr "Che ne so"
+
+#: portl/network.py:107
+msgid "Unmanaged"
+msgstr "Che ne so"
+
+#: portl/network.py:108
+msgid "Unavailable"
+msgstr "Che ne so"
+
+#: portl/network.py:109
+msgid "Disconnected"
+msgstr "Che ne so"
+
+#: portl/network.py:110
+msgid "Preparing"
+msgstr "Che ne so"
+
+#: portl/network.py:111
+msgid "Configuring"
+msgstr "Che ne so"
+
+#: portl/network.py:112
+msgid "Authentication required"
+msgstr "Che ne so"
+
+#: portl/network.py:113
+msgid "Configuring address"
+msgstr "Che ne so"
+
+#: portl/network.py:114
+msgid "Checking address"
+msgstr "Che ne so"
+
+#: portl/network.py:115
+msgid "Secondaries"
+msgstr "Che ne so"
+
+#: portl/network.py:116
+msgid "Active"
+msgstr "Molto bene"
+
+#: portl/network.py:117
+msgid "Deactivating"
+msgstr "Che ne so"
+
+#: portl/network.py:118
+msgid "Failed"
+msgstr "Che ne so"
+

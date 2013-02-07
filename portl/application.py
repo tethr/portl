@@ -56,6 +56,14 @@ DEFAULT_LOCALE = 'en'
 AVAILABLE_LOCALES = set(['en', 'it'])
 
 def locale_negotiator(request):
+    # Pass accept language header through a cookie to work around Chromium bug
+    # http://code.google.com/p/chromium/issues/detail?id=174956
+    if not request.accept_language:
+        accept = request.cookies.get('accept_language')
+        if accept:
+            request.accept_language = accept
+    request.response.set_cookie('accept_language', str(request.accept_language))
+
     for locale in request.accept_language:
         if locale in AVAILABLE_LOCALES:
             return locale
