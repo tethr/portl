@@ -7,7 +7,6 @@ import redis
 import socketio
 import socketio.namespace
 
-from pyramid.i18n import get_locale_name
 from pyramid.response import Response
 from pyramid.view import view_config
 
@@ -40,8 +39,6 @@ def overview(context, request):
     data = get_dummy_overview_data(request)
     data['power_log_url'] = '#'
     data['manage_sync_url'] = '#'
-    if data['wan']['rate']:
-        data['wan']['rate'] = format_bps(data['wan']['rate'])
     if data['battery']['time_left']:
         data['battery']['time_left'] = format_time_left(
             data['battery']['time_left'])
