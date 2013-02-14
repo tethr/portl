@@ -1,0 +1,6 @@
+Packages installed::
+
+    git
+    python-virtualenv
+    python-dev
+    libevent-dev
